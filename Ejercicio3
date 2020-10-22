@@ -1,0 +1,32 @@
+#include "p16F628a.inc"
+__CONFIG _FOSC_INTOSCCLK & _WDTE_OFF & _PWRTE_OFF & _MCLRE_OFF & _BOREN_OFF & _LVP_OFF & _CPD_OFF & _CP_OFF
+
+RES_VECT CODE 0x0000 ; processor reset vector
+GOTO START ; go to beginning of program
+; TODO ADD INTERRUPTS HERE IF USED
+MAIN_PROG CODE ; let linker place main program
+
+i equ 0x30
+j equ 0x31
+k equ 0x32
+
+START
+    BSF STATUS, RP0
+    BSF TRISB,1 ;RB1 ENTRADA
+    BCF TRISB,0 ;RB0 SALIDA
+    BCF STATUS,RP0
+    ;BCF portB,2
+  
+inicio:
+    BTFSS PORTB,1
+    GOTO inicio
+    call tiempo
+    BSF PORTB,0
+    GOTO apagar
+  
+ apagar:
+    BTFSC PORTB,1
+    GOTO apagar
+    BCF PORTB,0
+    GOTO inicio
+    
