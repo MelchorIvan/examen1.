@@ -29,4 +29,6 @@ inicio:
     GOTO apagar
     BCF PORTB,0
     GOTO inicio
+   
+   ;NO ACABÉ PERO SI PRENDE PERO NO CADA 500 ms
     
